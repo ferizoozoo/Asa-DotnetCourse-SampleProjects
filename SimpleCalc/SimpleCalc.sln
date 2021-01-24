@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asa.Calculator.UI", "SimpleCalc\Asa.Calculator.UI.csproj", "{3698F045-89C3-4A93-863D-5C25C355E076}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asa.Calculator.Core", "Asa.Calculator.Core\Asa.Calculator.Core.csproj", "{CD7ECCC0-AA45-45B4-8103-18EF92744B9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3698F045-89C3-4A93-863D-5C25C355E076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3698F045-89C3-4A93-863D-5C25C355E076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3698F045-89C3-4A93-863D-5C25C355E076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3698F045-89C3-4A93-863D-5C25C355E076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7ECCC0-AA45-45B4-8103-18EF92744B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7ECCC0-AA45-45B4-8103-18EF92744B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7ECCC0-AA45-45B4-8103-18EF92744B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7ECCC0-AA45-45B4-8103-18EF92744B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E095488-7BB6-45F9-9398-1B7A93D3369C}
+	EndGlobalSection
+EndGlobal
