@@ -11,7 +11,11 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
 {
     public class BuildingManager
     {
-
+       ITableGatwayFactory _tablegatwayFactory;
+        public BuildingManager(ITableGatwayFactory tablegatwayFactory)
+        {
+            _tablegatwayFactory = tablegatwayFactory;
+        }
         public int JustForTest(int a, int b)
         {
             return a + b;
@@ -31,8 +35,8 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
             }
             //Insert to DB
 
-            IBuildingTableGateway tableGateway = null;
-            var id = await tableGateway.InsertBuilding(building).ConfigureAwait(false);
+            IBuildingTableGateway tableGateway = _tablegatwayFactory.CreateBuildingTableGateway();
+            var id = await tableGateway.InsertBuildingAsync(building).ConfigureAwait(false);
             return id;
         }
     

@@ -8,6 +8,6 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DataGateways
 {
     public interface IBuildingTableGateway
     {
-        Task<int> InsertBuilding(BuildingDTO building);
+        Task<int> InsertBuildingAsync(BuildingDTO building);
     }
 }

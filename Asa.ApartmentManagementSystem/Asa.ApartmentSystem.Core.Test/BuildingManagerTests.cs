@@ -2,6 +2,8 @@ using ASa.ApartmentManagement.Core.BaseInfo.DTOs;
 using ASa.ApartmentManagement.Core.BaseInfo.Managers;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Moq;
+using ASa.ApartmentManagement.Core.BaseInfo.DataGateways;
 
 namespace Asa.ApartmentSystem.Core.Test
 {
@@ -18,7 +20,7 @@ namespace Asa.ApartmentSystem.Core.Test
         public void RUN_Just_For_Test()
         {
             //A
-            BuildingManager buildingManager = new BuildingManager();
+            BuildingManager buildingManager = new BuildingManager(new MyFakes.TableGatewyFactory());
             int a = 10;
             int b = 15;
             //A
@@ -33,7 +35,7 @@ namespace Asa.ApartmentSystem.Core.Test
         {
             //A => Arange
 
-            BuildingManager buildingManager = new BuildingManager();
+            BuildingManager buildingManager = new BuildingManager(new MyFakes.TableGatewyFactory());
             BuildingDTO building = new BuildingDTO { Id = 0, Name = string.Empty, NumberOfUnits = 10 };
             //A => Act
             //A => Assert
@@ -42,7 +44,41 @@ namespace Asa.ApartmentSystem.Core.Test
             //AsyncTestDelegate asyncTestDelegate = DoMyAcgtion;
             //Assert.CatchAsync(asyncTestDelegate);
         }
-        
+
+        [Test]
+        public async Task Building_Added_Successfuly()
+        {
+            //A => Arange
+
+            BuildingManager buildingManager = new BuildingManager(new MyFakes.TableGatewyFactory());
+            BuildingDTO building = new BuildingDTO { Id = 0, Name = "My Building", NumberOfUnits = 10 };
+            //A => Act
+            var id = await buildingManager.AddBuilding(building);
+            //A => Assert
+            Assert.AreEqual(1, id);
+        }
+
+        [Test]
+        public async Task Building_Added_Successfuly_With_Moq()
+        {
+            //A => Arange
+
+            Mock<ITableGatwayFactory> mock_ITableGatwayFactory = new Mock<ITableGatwayFactory>();
+
+            Mock<IBuildingTableGateway> mock_IBuildingTableGateway = new Mock<IBuildingTableGateway>();
+            int myId = 10;
+            mock_IBuildingTableGateway.Setup(x => x.InsertBuildingAsync(It.IsAny<BuildingDTO>())).ReturnsAsync(myId);
+            mock_ITableGatwayFactory.Setup(x => x.CreateBuildingTableGateway()).Returns(mock_IBuildingTableGateway.Object);
+
+            BuildingManager buildingManager = new BuildingManager(mock_ITableGatwayFactory.Object);
+            BuildingDTO building = new BuildingDTO { Id = 0, Name = "My Building", NumberOfUnits = 10 };
+
+            //A => Act
+            var id = await buildingManager.AddBuilding(building);
+
+            //A => Assert
+            Assert.AreEqual(myId, id);
+        }
         //FAKE Mock Stub Dummy
         //Autofac
 
