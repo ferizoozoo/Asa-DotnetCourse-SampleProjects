@@ -35,20 +35,13 @@ namespace Observer
             //customerProcessor.ProcessLoans2(900000, printer);
 
             //Delegate
-            // customerProcessor.ProcessLoans3(900000, x => Console.WriteLine(x));
-            
+            customerProcessor.ProcessLoan3(900000, x => Console.WriteLine(x));
+
             //Event
 
-            customerProcessor.LargeLoanFound += CustomerProcessor_LargeLoanFound;
-            customerProcessor.ProcessLoans4(900_000);
             Console.WriteLine("End");
 
             Console.ReadLine();
-        }
-
-        private static void CustomerProcessor_LargeLoanFound(object sender, Customer e)
-        {
-            Console.WriteLine(e);
         }
     }
 }
