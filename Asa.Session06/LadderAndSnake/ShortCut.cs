@@ -6,14 +6,14 @@ namespace LadderAndSnake
 {
     public struct ShortCut
     {
+        public int Start { get; }
+        public int End { get; }
+
         public ShortCut(int start, int end)
         {
             Start = start;
             End = end;
         }
-
-        public int Start { get; }
-        public int End { get; }
 
         public override bool Equals(object obj)
         {

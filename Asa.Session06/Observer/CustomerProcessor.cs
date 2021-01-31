@@ -27,10 +27,6 @@ namespace Observer
             return customers;
         }
 
-
-
-
-
         public void ProcessLoans2(int maxLoan, ICustomerLoanCallback callback)
         {
             foreach (var item in _customers)
@@ -44,7 +40,7 @@ namespace Observer
         }
 
 
-        public void ProcessLoans3(int maxLoan, Action<Customer> action)
+        public void ProcessLoan3(int maxLoan, Action<Customer> action)
         {
             foreach (var item in _customers)
             {
@@ -52,25 +48,6 @@ namespace Observer
                 if (item.Loan <= maxLoan)
                 {
                     action(item);
-                }
-            }
-        }
-
-
-
-
-
-        public event EventHandler<Customer> LargeLoanFound;
-        public void ProcessLoans4(int maxLoan)
-        {
-
-
-            foreach (var item in _customers)
-            {
-                Thread.Sleep(10);
-                if (item.Loan <= maxLoan)
-                {
-                    LargeLoanFound(this, item);
                 }
             }
         }

@@ -1,65 +1,64 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LadderAndSnake
 {
     public class Game
     {
-
         readonly List<Player> _players;
         Board _board;
-        public Game(int heigth, int width, int ladderCount, int snakeCount)
+        bool gameIsFinished;
+        private int currentPlayerIndex = 0;
+         
+        public Game(Board board)
         {
-            _board = new Board(heigth, width, ladderCount, snakeCount);
+            _board = board;
+            _players = new List<Player>();
         }
 
         public void Join(string name, ColorEnum color)
         {
-            //foreach (var item in _players)
-            //{
-            //    if (item.Name == name) throw new InvalidOperationException("Duplicated player name is not allowed.");
-            //}
+            const int Max_Allowed_Players = 4;
 
-            //IComparable<T>
             Player newPlayer = new Player(name, color);
-            //if (_players.Any(x => x.Name.ToLower().Trim() == name.ToLower().Trim() || x.Color == color))
-            //if (_players.Any(x => x.Equals(newPlayer)))
+
             if (_players.Any(x => x == newPlayer))
-            {
                 throw new InvalidOperationException("Duplicated player name is not allowed.");
-            }
-            const int Max_Allowd_Players = 4;
-            if (_players.Count >= Max_Allowd_Players)
-            {
+
+            if (_players.Count >= Max_Allowed_Players)
                 throw new InvalidOperationException("Only 4 players can join a game.");
-            }
+
             _players.Add(new Player(name, color));
         }
-        public Game()
+        
+        private MoveResult Play()
         {
-            _players = new List<Player>();
-        }
-
-        bool gameIsFinished;
-        public MoveResult Play()
-        {
-            if (gameIsFinished)
-            {
-                throw new InvalidOperationException("Game is finished, no more movement is allowed.");
-            }
             var currentPlayer = GetCurrentPlayer();
             MoveResult moveresult = currentPlayer.MoveOn(_board);
-            moveresult.IsWinner = moveresult.NewPosition == _board.ExitPint;
+            moveresult.IsWinner = moveresult.NewPosition == _board.ExitPoint;
+            currentPlayerIndex = currentPlayerIndex == _players.Count - 1 ? 0 : currentPlayerIndex + 1; 
             gameIsFinished = moveresult.IsWinner;
+
             return moveresult;
         }
 
-        private Player GetCurrentPlayer()
+        public void PlayGame()
         {
-            throw new NotImplementedException();
+            MoveResult moveResult;
+
+            do
+            {
+                moveResult = Play();
+                Console.WriteLine($"Player {moveResult.Name} just played.");
+            } while (!gameIsFinished);
+
+            var name = moveResult.Name;
+            Console.WriteLine($"The winner is {name}");
         }
+
+        private Player GetCurrentPlayer() => _players[currentPlayerIndex];
+
         public BoardDataDto GetBoardData() => _board.GetData();
     }
 }

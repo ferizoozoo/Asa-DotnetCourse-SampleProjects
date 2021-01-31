@@ -4,59 +4,106 @@ using System.Text;
 
 namespace LadderAndSnake
 {
-    class Board
+    public class Board
     {
-        public int Heigth { get; }
+        public int Height { get; }
         public int Width { get; }
-        public int ExitPint => Heigth * Width;
+        public int ExitPoint => Height * Width;
 
         int _ladderCount;
-        int _SnakeCount;
-        List<ShortCut> _shortCuts;// this data structure is not performant in term of time and space complexity
-        public Board(int heigth, int width, int ladderCount, int snakeCount)
+        int _snakeCount;
+
+        Dictionary<int, ShortCut> _shortCuts;
+        HashSet<int> _cellsUsedForShortCuts;
+
+        Random _random;
+
+        public Board(int height, int width, int ladderCount, int snakeCount)
         {
-            Heigth = heigth;
+            if (height * width < (ladderCount + snakeCount) / 2)
+                throw new ArgumentOutOfRangeException("The size of the board and number of the ladders and snakes are not compatible.");
+
+            Height = height;
             Width = width;
             _ladderCount = ladderCount;
-            _SnakeCount = snakeCount;
-            if (Heigth * width < (_ladderCount + snakeCount) / 2)
-            {
-                throw new ArgumentOutOfRangeException("The size of the board and number of the ladders and snakes are not compatible.");
-            }
-            _shortCuts = new List<ShortCut>();
+            _snakeCount = snakeCount;
+            _shortCuts = new Dictionary<int, ShortCut>();
+            _cellsUsedForShortCuts = new HashSet<int>();
+            _random = new Random();
+
             Initial();
         }
 
         private void Initial()
         {
-            AddSnake();
-            AddLAdder();
+            AddShortCut(_snakeCount, IsSnake);
+            AddShortCut(_ladderCount, IsLadder);
         }
 
-        private void AddSnake()
+        private ShortCut GenerateShortCut()
         {
-            for (int i = 0; i < _SnakeCount; i++)
+            int start = 1 + _random.Next(100);
+            int end = 1 + _random.Next(100);
+            return new ShortCut(start, end);
+        }
+
+        private delegate bool ShortCutSnakeOrLadder(ShortCut shortCut);
+
+        private bool IsSnake(ShortCut shortCut) => shortCut.Start > shortCut.End;
+
+        private bool IsLadder(ShortCut shortCut) => shortCut.Start < shortCut.End;
+
+        private void AddShortCut(int count, ShortCutSnakeOrLadder snakeOrLadder)
+        {
+            int shortCutsAdded = 0;
+            while (shortCutsAdded <= count)
             {
-                //Implement
+                var shortCut = GenerateShortCut();
+                if (snakeOrLadder(shortCut) && IsShortCutValid(shortCut))
+                {
+                    // Add the cells used for shortcuts
+                    _cellsUsedForShortCuts.Add(shortCut.Start);
+                    _cellsUsedForShortCuts.Add(shortCut.End);
+
+                    // Add the shortcut to the shortcuts
+                    _shortCuts.Add(shortCut.Start, shortCut);
+                    shortCutsAdded++;
+                }  
             }
         }
 
-        private void AddLAdder()
+        private bool IsShortCutValid(ShortCut shortCut)
         {
-            for (int i = 0; i < _SnakeCount; i++)
-            {
-                //Implement
-            }
+            if (_cellsUsedForShortCuts.Contains(shortCut.Start) || _cellsUsedForShortCuts.Contains(shortCut.End))
+                return false;
+            return true;
         }
 
-        internal int CalculateNextPostion(int position, int diceValue)
+        public int CalculateNextPosition(int position, int diceValue)
         {
-            throw new NotImplementedException();
+            int newPosition = position + diceValue;
+
+            if (_shortCuts.ContainsKey(newPosition))
+                newPosition = _shortCuts[newPosition].End;
+
+            if (newPosition > 100)
+                newPosition = 0;
+
+            if (newPosition < 0)
+                throw new ArgumentOutOfRangeException("New position cannot be below zero.");
+
+            return newPosition;
         }
 
         internal BoardDataDto GetData()
         {
-            throw new NotImplementedException();
+            var boardData = new BoardDataDto
+            {
+                Height = this.Height,
+                Width = this.Width
+            };
+
+            return boardData;
         }
     }
 }
