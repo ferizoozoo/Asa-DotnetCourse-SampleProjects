@@ -11,11 +11,9 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
     public class BuildingTableGateway : IBuildingTableGateway
     {
         string _connectionString;
-        public BuildingTableGateway(string connectionString)
+        public BuildingTableGateway(string connectionStrin)
         {
-            _connectionString = connectionString;
-            // Data source= server; Initial catalog= dbname; userID= user; PWD=password
-
+            _connectionString = connectionStrin;
         }
 
         public async Task<int> InsertBuildingAsync(BuildingDTO building)
@@ -25,11 +23,14 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
             {
                 using (var cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "";//Query / Name of the stored procedure
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = "[dbo].[buildings_create]";
+                    cmd.Parameters.AddWithValue("@name", building.Name);
+                    cmd.Parameters.AddWithValue("@number_of_units", building.NumberOfUnits);
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("Name of the parameter", "the value");
-                    //....
-                    await cmd.ExecuteNonQueryAsync();
+                    cmd.Connection.Open();
+                    var result = await cmd.ExecuteScalarAsync();
+                    id = Convert.ToInt32(result);
                 }
             }
             return id;

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using Moq;
 using ASa.ApartmentManagement.Core.BaseInfo.DataGateways;
+using ASa.ApartmentManagement.Core;
 
 namespace Asa.ApartmentSystem.Core.Test
 {
@@ -53,9 +54,9 @@ namespace Asa.ApartmentSystem.Core.Test
             BuildingManager buildingManager = new BuildingManager(new MyFakes.TableGatewyFactory());
             BuildingDTO building = new BuildingDTO { Id = 0, Name = "My Building", NumberOfUnits = 10 };
             //A => Act
-            var id = await buildingManager.AddBuilding(building);
+             await buildingManager.AddBuilding(building);
             //A => Assert
-            Assert.AreEqual(1, id);
+            Assert.AreEqual(1, building.Id);
         }
 
         [Test]
@@ -74,10 +75,10 @@ namespace Asa.ApartmentSystem.Core.Test
             BuildingDTO building = new BuildingDTO { Id = 0, Name = "My Building", NumberOfUnits = 10 };
 
             //A => Act
-            var id = await buildingManager.AddBuilding(building);
+            await buildingManager.AddBuilding(building);
 
             //A => Assert
-            Assert.AreEqual(myId, id);
+            Assert.AreEqual(myId, building.Id);
         }
         //FAKE Mock Stub Dummy
         //Autofac
@@ -88,5 +89,10 @@ namespace Asa.ApartmentSystem.Core.Test
         //    BuildingDTO building = new BuildingDTO { Id = 0, Name = string.Empty, NumberOfUnits = 10 };
         //    await buildingManager.AddBuilding(building);
         //}
+
+        public async Task Test()
+        {
+            SampleInternal sampleInternal = new ASa.ApartmentManagement.Core.SampleInternal();
+        }
     }
 }

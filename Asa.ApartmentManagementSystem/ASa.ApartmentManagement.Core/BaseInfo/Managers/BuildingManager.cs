@@ -11,7 +11,7 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
 {
     public class BuildingManager
     {
-       ITableGatwayFactory _tablegatwayFactory;
+        ITableGatwayFactory _tablegatwayFactory;
         public BuildingManager(ITableGatwayFactory tablegatwayFactory)
         {
             _tablegatwayFactory = tablegatwayFactory;
@@ -20,7 +20,16 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
         {
             return a + b;
         }
-        public async Task<int> AddBuilding(BuildingDTO building)
+        public async Task AddBuilding(BuildingDTO building)
+        {
+            ValidateBuilding(building);
+            var tableGateway = _tablegatwayFactory.CreateBuildingTableGateway();
+            var id = await tableGateway.InsertBuildingAsync(building).ConfigureAwait(false);
+            building.Id = id;
+
+        }
+
+        private static void ValidateBuilding(BuildingDTO building)
         {
             const int MAX_BUILDING_NAME_LENGTH = 50;
             var buildingNameIsValid = string.IsNullOrWhiteSpace(building.Name) || building.Name.Length > MAX_BUILDING_NAME_LENGTH;
@@ -31,14 +40,14 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
             const int MINIMUM_BUILDING_UNITS_COUNT = 1;
             if (building.NumberOfUnits < MINIMUM_BUILDING_UNITS_COUNT)
             {
-                //Throw exceptoin
+                throw new ValidationException(ErrorCodes.Invalid_Number_Of_Units, $"The number of units cannot be less than {MINIMUM_BUILDING_UNITS_COUNT }.");
             }
-            //Insert to DB
-
-            IBuildingTableGateway tableGateway = _tablegatwayFactory.CreateBuildingTableGateway();
-            var id = await tableGateway.InsertBuildingAsync(building).ConfigureAwait(false);
-            return id;
         }
-    
+
+        public async Task<IEnumerable<ApartmentUnitDTO>> GetAllApartmentUnits(int buildingId)
+        {
+            var tableGateway = _tablegatwayFactory.CreateIApartmentTableGateway();
+            return  await tableGateway.GetAllByBuildingId(buildingId).ConfigureAwait(false);            
+        }
     }
 }

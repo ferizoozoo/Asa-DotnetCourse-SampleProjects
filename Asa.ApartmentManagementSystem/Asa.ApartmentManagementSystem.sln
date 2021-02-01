@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asa.ApartmentSystem.Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASa.ApartmentSystem.API", "ASa.ApartmentSystem.API\ASa.ApartmentSystem.API.csproj", "{CDB12F46-18A9-410C-8585-00C3ECF7134D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asa.Draft", "Asa.Draft\Asa.Draft.csproj", "{0FF15C2F-06E1-4BE8-828E-04F97E3C969D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asa.Draft", "Asa.Draft\Asa.Draft.csproj", "{0FF15C2F-06E1-4BE8-828E-04F97E3C969D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Asa.ApartmentSystem.DB", "Asa.ApartmentSystem.DB\Asa.ApartmentSystem.DB.sqlproj", "{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,12 @@ Global
 		{0FF15C2F-06E1-4BE8-828E-04F97E3C969D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF15C2F-06E1-4BE8-828E-04F97E3C969D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF15C2F-06E1-4BE8-828E-04F97E3C969D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01ED93AB-7E34-476B-B7D1-95BCBA42E15D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
