@@ -17,6 +17,27 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
+        public async Task<int> InsertApartmentUnitAsync(ApartmentUnitDTO apartment)
+        {
+            int id = 0;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = "[dbo].[apartments_create]";
+                    cmd.Parameters.AddWithValue("@Number", apartment.Number);
+                    cmd.Parameters.AddWithValue("@BuildingId", apartment.BuildingId);
+                    cmd.Parameters.AddWithValue("@Area", apartment.Area);
+                    cmd.Connection = connection;
+                    cmd.Connection.Open();
+                    var result = await cmd.ExecuteScalarAsync();
+                    id = Convert.ToInt32(result);
+                }
+            }
+            return id;
+        }
+
         public async Task<IEnumerable<ApartmentUnitDTO>> GetAllByBuildingId(int buildingId)
         {
             var result = new List<ApartmentUnitDTO>();
@@ -42,7 +63,7 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
                             //unitDTO.Area= Convert.ToDecimal(dataReader["area"]);
                             //unitDTO.Description= Convert.ToString(dataReader["description"]);
                                                         
-                            unitDTO.BuidlingId = dataReader.Extract<int>("building_id");//== unitDTO.BuidlingId = Extensions.Extract<int>(dataReader,"building_id");
+                            unitDTO.BuildingId = dataReader.Extract<int>("building_id");//== unitDTO.BuidlingId = Extensions.Extract<int>(dataReader,"building_id");
                             unitDTO.Id= dataReader.Extract<int>("id");
                             unitDTO.Number= dataReader.Extract<int>("number");
                             unitDTO.Area= dataReader.Extract<decimal>("area");

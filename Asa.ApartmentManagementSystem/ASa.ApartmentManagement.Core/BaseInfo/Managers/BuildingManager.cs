@@ -44,6 +44,25 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
             }
         }
 
+        public async Task AddApartment(ApartmentUnitDTO apartment)
+        {
+            const decimal MAX_APARTMENT_AREA = 100;
+            const decimal MIN_APARTMENT_AREA = 10;
+
+            if (apartment.Number < 0)
+                throw new ValidationException(ErrorCodes.Invalid_Number_Of_Apartment, "Apartment number cannot be less than 0.");
+
+            if (apartment.Area > MAX_APARTMENT_AREA)
+                throw new ValidationException(ErrorCodes.Maximum_Violation_Of_Area, $"The area of the apartment {apartment.Id} cannot be less than {MIN_APARTMENT_AREA} squaremeters.");
+
+            if (apartment.Area < MIN_APARTMENT_AREA)
+                throw new ValidationException(ErrorCodes.Minimum_Violation_Of_Area, $"The area of the apartment {apartment.Id} cannot be less than {MIN_APARTMENT_AREA} squaremeters.");
+
+            IApartmentTableGateway tableGateway = _tablegatwayFactory.CreateIApartmentTableGateway();
+            var id = await tableGateway.InsertApartmentUnitAsync(apartment).ConfigureAwait(false);
+            apartment.Id = id;
+        }
+
         public async Task<IEnumerable<ApartmentUnitDTO>> GetAllApartmentUnits(int buildingId)
         {
             var tableGateway = _tablegatwayFactory.CreateIApartmentTableGateway();
