@@ -27,6 +27,7 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
                     cmd.CommandText = "[dbo].[persons_create]";
                     cmd.Parameters.AddWithValue("@name", person.Name);
                     cmd.Parameters.AddWithValue("@lastname", person.LastName);
+                    cmd.Parameters.AddWithValue("@unit", person.Unit);
                     cmd.Connection = connection;
                     cmd.Connection.Open();
                     var result = await cmd.ExecuteScalarAsync();
@@ -34,6 +35,11 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
                 }
             }
             return id;
+        }
+
+        public async Task<IEnumerable<PersonDTO>> GetAllPersonsById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
