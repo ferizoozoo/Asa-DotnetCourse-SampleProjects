@@ -1,4 +1,5 @@
 ﻿using System;
+using LadderAndSnake;
 
 namespace LadderAndSnake.UI
 {
@@ -6,9 +7,15 @@ namespace LadderAndSnake.UI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Game g = new Game();
-           // g.Players.Add(new Player("", ColorEnum.Blue));
+            Board board = new Board(10, 10, 5, 5);
+            Game game = new Game(board);
+
+            game.Join("A", ColorEnum.Blue);
+            game.Join("B", ColorEnum.Green);
+            game.Join("C", ColorEnum.Red);
+            game.Join("D", ColorEnum.Yellow);
+
+            game.PlayGame();
         }
     }
 }

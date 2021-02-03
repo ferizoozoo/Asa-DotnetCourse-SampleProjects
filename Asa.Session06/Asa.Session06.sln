@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadderAndSnake", "LadderAndSnake\LadderAndSnake.csproj", "{B5BDF78F-388C-4481-8E5C-4F90EA54400D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LadderAndSnake", "LadderAndSnake\LadderAndSnake.csproj", "{B5BDF78F-388C-4481-8E5C-4F90EA54400D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadderAndSnake.UI", "LadderAndSnake.UI\LadderAndSnake.UI.csproj", "{CDCA37D9-72F5-4A6B-95A4-1B6C24B44B53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LadderAndSnake.UI", "LadderAndSnake.UI\LadderAndSnake.UI.csproj", "{CDCA37D9-72F5-4A6B-95A4-1B6C24B44B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observer", "Observer\Observer.csproj", "{337C0C2C-F827-4C1A-815D-9816581040DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer", "Observer\Observer.csproj", "{337C0C2C-F827-4C1A-815D-9816581040DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadderAndSnake.Test", "LadderAndSnake.Test\LadderAndSnake.Test.csproj", "{5377C90F-F15F-44D6-9C11-B462FEEE9A3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{337C0C2C-F827-4C1A-815D-9816581040DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{337C0C2C-F827-4C1A-815D-9816581040DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{337C0C2C-F827-4C1A-815D-9816581040DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5377C90F-F15F-44D6-9C11-B462FEEE9A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5377C90F-F15F-44D6-9C11-B462FEEE9A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5377C90F-F15F-44D6-9C11-B462FEEE9A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5377C90F-F15F-44D6-9C11-B462FEEE9A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

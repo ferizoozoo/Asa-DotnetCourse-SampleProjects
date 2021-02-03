@@ -10,21 +10,10 @@ namespace LadderAndSnake
 
         public Player(string name, ColorEnum color)
         {
-
             Name = name != null ? name.Trim().ToLower() : throw new ArgumentNullException(nameof(name));
-
-            //if (name != null)
-            //{
-            //    Name = null;
-            //}
-            //else
-            //{
-            //    throw new ArgumentNullException(nameof(name));
-            //}
-
             Color = color;
-            //Position = 1;
         }
+
         public int RollDice()
         {
             var randomGenerator = new Random();
@@ -32,9 +21,9 @@ namespace LadderAndSnake
             var diceValue = (randomNumber % 6) + 1;
             return diceValue;
         }
+
         public override bool Equals(object obj)
         {
-
             if (obj is Player player)
             {
                 var namesAreTheSame = string.Compare(Name, player.Name, true) == 0;
@@ -43,6 +32,7 @@ namespace LadderAndSnake
             }
             return false;
         }
+
         public override int GetHashCode()
         {
             //https://docs.microsoft.com/en-us/visualstudio/ide/reference/generate-equals-gethashcode-methods?view=vs-2019
@@ -55,7 +45,7 @@ namespace LadderAndSnake
         {
             var diceValue = RollDice();
             var oldPosition = Position;
-            var newPosition = board.CalculateNextPostion(oldPosition, diceValue);
+            var newPosition = board.CalculateNextPosition(oldPosition, diceValue);
             Position = newPosition;
             return new MoveResult(Name, Color, oldPosition, newPosition, diceValue);
         }
