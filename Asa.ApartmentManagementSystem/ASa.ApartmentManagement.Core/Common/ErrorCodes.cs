@@ -12,5 +12,6 @@ namespace ASa.ApartmentManagement.Core.Common
         public const int Invalid_Number_Of_Apartment = 1002;
         public const int Minimum_Violation_Of_Area = 1003;
         public const int Maximum_Violation_Of_Area = 1004;
+        public const int Invalid_Person_Name = 1005;
     }
 }

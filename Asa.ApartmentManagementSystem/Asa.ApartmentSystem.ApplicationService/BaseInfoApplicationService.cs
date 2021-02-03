@@ -35,6 +35,13 @@ namespace Asa.ApartmentSystem.ApplicationService
             return apartmentDto.Id;
         }
 
+        public async Task<int> CreatePerson(string name, string lastName)
+        {
+            var personDto = new PersonDTO { Name = name, LastName = lastName };
+            await buildingManager.AddPerson(personDto);
+            return personDto.Id;
+        }
+
         public async Task<IEnumerable<ApartmentUnitDTO>> GetUnitsForBuilding(int buildingId)
         {
             var buildingManager = new BuildingManager(tableGatwayFactory);
