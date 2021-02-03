@@ -19,16 +19,15 @@ namespace Asa.ApartmentSystem.ApplicationService
         }
         public async Task<int> CreateBuilding(string Name, int numberofUnits)
         {
-            var buildingManager = new BuildingManager(tableGatwayFactory);
+            BuildingManager buildingManager = new BuildingManager(tableGatwayFactory);
             var buildingDto = new BuildingDTO { Name = Name, NumberOfUnits = numberofUnits };
             await buildingManager.AddBuilding(buildingDto);
             return buildingDto.Id;
         }
-        public async Task<IEnumerable<ApartmentUnitDTO>> GetUnitsForBuilding(int buildingId)
+        public async Task<IEnumerable<OwnerTenantInfoDto>> GetAllOwnerTenantByUnitId(int unitid)
         {
             var buildingManager = new BuildingManager(tableGatwayFactory);
-            var result = await buildingManager.GetAllApartmentUnits(buildingId);
-            return result;
+            return await buildingManager.GetAllOwnerTenantByUnitId(unitid);            
         }
     }
 }

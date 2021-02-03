@@ -12,24 +12,18 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
     public class BuildingManager
     {
         ITableGatwayFactory _tablegatwayFactory;
+        
         public BuildingManager(ITableGatwayFactory tablegatwayFactory)
         {
             _tablegatwayFactory = tablegatwayFactory;
         }
+        
         public int JustForTest(int a, int b)
         {
             return a + b;
         }
+        
         public async Task AddBuilding(BuildingDTO building)
-        {
-            ValidateBuilding(building);
-            var tableGateway = _tablegatwayFactory.CreateBuildingTableGateway();
-            var id = await tableGateway.InsertBuildingAsync(building).ConfigureAwait(false);
-            building.Id = id;
-
-        }
-
-        private static void ValidateBuilding(BuildingDTO building)
         {
             const int MAX_BUILDING_NAME_LENGTH = 50;
             var buildingNameIsValid = string.IsNullOrWhiteSpace(building.Name) || building.Name.Length > MAX_BUILDING_NAME_LENGTH;
@@ -42,12 +36,22 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
             {
                 throw new ValidationException(ErrorCodes.Invalid_Number_Of_Units, $"The number of units cannot be less than {MINIMUM_BUILDING_UNITS_COUNT }.");
             }
+
+            IBuildingTableGateway tableGateway = _tablegatwayFactory.CreateBuildingTableGateway();
+            var id = await tableGateway.InsertBuildingAsync(building).ConfigureAwait(false);
+            building.Id = id;
+
+        }
+        
+        public async Task<IEnumerable<OwnerTenantInfoDto>> GetAllOwnerTenantByUnitId(int unitId)
+        {
+            if (unitId < 1)
+            {
+                return new List<OwnerTenantInfoDto>();
+            }
+            var tableGateway = _tablegatwayFactory.CreateIApartmentTableGateway();
+            return await tableGateway.GetAllOwnerTenant(unitId).ConfigureAwait(false);            
         }
 
-        public async Task<IEnumerable<ApartmentUnitDTO>> GetAllApartmentUnits(int buildingId)
-        {
-            var tableGateway = _tablegatwayFactory.CreateIApartmentTableGateway();
-            return  await tableGateway.GetAllByBuildingId(buildingId).ConfigureAwait(false);            
-        }
     }
 }

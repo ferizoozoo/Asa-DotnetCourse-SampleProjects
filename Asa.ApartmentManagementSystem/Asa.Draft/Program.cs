@@ -1,5 +1,6 @@
 ﻿using Asa.ApartmentSystem.ApplicationService;
 using System;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,14 +28,10 @@ namespace Asa.Draft
             //var task2 = Task.Run(DoMySecondJob);
             //await Task.WhenAll(task1, task2);
 
-            //BaseInfoApplicationService baseInfoService = new BaseInfoApplicationService(@"Data source=.\DevInstance;initial catalog=ApartmentManagement; User Id=sa;pwd=password1;");
-            //var id = await baseInfoService.CreateBuilding("my Building", 5);
+            var connectionString = ConfigurationManager.ConnectionStrings["AppartmentManagementCNX"].ConnectionString;
 
-            var baseInfoService = new BaseInfoApplicationService(@"Data source=.\DevInstance;initial catalog=ApartmentManagementSystem; User Id=sa;pwd=password1;");
-            var units= await baseInfoService.GetUnitsForBuilding(1);
-            
-
-
+            var baseInfoService = new BaseInfoApplicationService(connectionString);
+            var units = await baseInfoService.GetAllOwnerTenantByUnitId(1);
             Console.WriteLine("Done");
             Console.ReadLine();
         }

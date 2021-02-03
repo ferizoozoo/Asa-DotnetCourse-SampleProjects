@@ -12,8 +12,7 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
     {
         string _connectionString;
         public BuildingTableGateway(string connectionStrin)
-        {
-            _connectionString = connectionStrin;
+        {            _connectionString = connectionStrin;
         }
 
         public async Task<int> InsertBuildingAsync(BuildingDTO building)
@@ -25,8 +24,8 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "[dbo].[buildings_create]";
-                    cmd.Parameters.AddWithValue("@name", building.Name);
-                    cmd.Parameters.AddWithValue("@number_of_units", building.NumberOfUnits);
+                    cmd.Parameters.AddWithValue("@Name", building.Name);
+                    cmd.Parameters.AddWithValue("@NumberOfUnits", building.NumberOfUnits);
                     cmd.Connection = connection;
                     cmd.Connection.Open();
                     var result = await cmd.ExecuteScalarAsync();

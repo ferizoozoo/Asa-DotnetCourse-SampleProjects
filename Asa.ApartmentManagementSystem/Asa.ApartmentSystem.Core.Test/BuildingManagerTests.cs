@@ -4,7 +4,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using Moq;
 using ASa.ApartmentManagement.Core.BaseInfo.DataGateways;
-using ASa.ApartmentManagement.Core;
 
 namespace Asa.ApartmentSystem.Core.Test
 {
@@ -89,10 +88,5 @@ namespace Asa.ApartmentSystem.Core.Test
         //    BuildingDTO building = new BuildingDTO { Id = 0, Name = string.Empty, NumberOfUnits = 10 };
         //    await buildingManager.AddBuilding(building);
         //}
-
-        public async Task Test()
-        {
-            SampleInternal sampleInternal = new ASa.ApartmentManagement.Core.SampleInternal();
-        }
     }
 }
