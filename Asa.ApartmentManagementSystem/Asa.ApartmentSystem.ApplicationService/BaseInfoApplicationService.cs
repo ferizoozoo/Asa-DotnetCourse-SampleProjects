@@ -2,6 +2,7 @@
 using ASa.ApartmentManagement.Core.BaseInfo.DataGateways;
 using ASa.ApartmentManagement.Core.BaseInfo.DTOs;
 using ASa.ApartmentManagement.Core.BaseInfo.Managers;
+using ASa.ApartmentManagement.Core.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +30,10 @@ namespace Asa.ApartmentSystem.ApplicationService
             return buildingDto.Id;
         }
         public async Task<IEnumerable<OwnerTenantInfoDto>> GetAllOwnerTenantByUnitId(int unitid)
-        {}
+        {
+            var buildingManager = new BuildingManager(tableGatwayFactory);
+            return await buildingManager.GetAllOwnerTenantByUnitId(unitid);
+        }
 
         public async Task<int> CreateApartment(int number, int buildingId, decimal area)
         {
@@ -45,10 +49,24 @@ namespace Asa.ApartmentSystem.ApplicationService
             return personDto.Id;
         }
 
-        public async Task<IEnumerable<ApartmentUnitDTO>> GetUnitsForBuilding(int buildingId)
+        public async Task<IEnumerable<OwnerTenantInfoDto>> GetUnitsForBuilding(int unitid)
         {
             var buildingManager = new BuildingManager(tableGatwayFactory);
             return await buildingManager.GetAllOwnerTenantByUnitId(unitid);            
+        }
+
+        public async Task<int> CreateCost(string title, CostGroupDTO group, DateTime from, DateTime to, decimal cost)
+        {
+            var costDto = new CostDTO
+            {
+                Title = title,
+                Group = group,
+                From = from,
+                To = to,
+                Cost = cost
+            };
+            await buildingManager.AddCost(costDto);
+            return costDto.Id;
         }
     }
 }
