@@ -67,7 +67,7 @@ namespace Asa.ApartmentSystem.Infra.DataGateways
                             //unitDTO.Area= Convert.ToDecimal(dataReader["area"]);
                             //unitDTO.Description= Convert.ToString(dataReader["description"]);
 
-                            unitDTO.BuidlingId = dataReader.Extract<int>("building_id");//== unitDTO.BuidlingId = Extensions.Extract<int>(dataReader,"building_id");
+                            unitDTO.BuildingId = dataReader.Extract<int>("building_id");//== unitDTO.BuidlingId = Extensions.Extract<int>(dataReader,"building_id");
                             unitDTO.Id = dataReader.Extract<int>("id");
                             unitDTO.Number = dataReader.Extract<int>("number");
                             unitDTO.Area = dataReader.Extract<decimal>("area");
