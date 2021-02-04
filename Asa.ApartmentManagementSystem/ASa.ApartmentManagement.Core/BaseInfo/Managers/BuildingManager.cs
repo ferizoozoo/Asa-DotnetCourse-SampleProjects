@@ -58,8 +58,26 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.Managers
         public async Task<int> AddCost(CostDTO cost)
         {
             ICostTableGateway tableGateway = _tablegatwayFactory.CreateICostTableGateway();
-            var id = await _tablegatwayFactory.InsertCostAsync(cost).ConfigureAwait(false);
+            var id = await tableGateway.InsertAsync(cost).ConfigureAwait(false);
             return id;
+        }
+
+        public async Task<CostDTO> GetCost(int costId)
+        {
+            ICostTableGateway tableGateway = _tablegatwayFactory.CreateICostTableGateway();
+            return await tableGateway.GetByIdAsync(costId);
+        }
+
+        public async Task UpdateCost(CostDTO cost)
+        {
+            ICostTableGateway tableGateway = _tablegatwayFactory.CreateICostTableGateway();
+            await tableGateway.UpdateAsync(cost);
+        }
+
+        public async Task DeleteCost(int costId)
+        {
+            ICostTableGateway tableGateway = _tablegatwayFactory.CreateICostTableGateway();
+            await tableGateway.DeleteByIdAsync(costId);
         }
     }
 }

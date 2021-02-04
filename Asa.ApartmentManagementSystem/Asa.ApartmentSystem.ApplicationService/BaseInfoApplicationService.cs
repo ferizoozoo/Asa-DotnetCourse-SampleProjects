@@ -24,14 +24,12 @@ namespace Asa.ApartmentSystem.ApplicationService
         }
         public async Task<int> CreateBuilding(string Name, int numberofUnits)
         {
-            BuildingManager buildingManager = new BuildingManager(tableGatwayFactory);
             var buildingDto = new BuildingDTO { Name = Name, NumberOfUnits = numberofUnits };
             await buildingManager.AddBuilding(buildingDto);
             return buildingDto.Id;
         }
         public async Task<IEnumerable<OwnerTenantInfoDto>> GetAllOwnerTenantByUnitId(int unitid)
         {
-            var buildingManager = new BuildingManager(tableGatwayFactory);
             return await buildingManager.GetAllOwnerTenantByUnitId(unitid);
         }
 
@@ -51,22 +49,36 @@ namespace Asa.ApartmentSystem.ApplicationService
 
         public async Task<IEnumerable<OwnerTenantInfoDto>> GetUnitsForBuilding(int unitid)
         {
-            var buildingManager = new BuildingManager(tableGatwayFactory);
             return await buildingManager.GetAllOwnerTenantByUnitId(unitid);            
         }
 
-        public async Task<int> CreateCost(string title, CostGroupDTO group, DateTime from, DateTime to, decimal cost)
+        public async Task<int> CreateCost(string title, int costGroupId, DateTime from, DateTime to, decimal cost)
         {
             var costDto = new CostDTO
             {
                 Title = title,
-                Group = group,
+                CostGroupId = costGroupId,
                 From = from,
                 To = to,
                 Cost = cost
             };
             await buildingManager.AddCost(costDto);
             return costDto.Id;
+        }
+
+        public async Task<CostDTO> GetCost(int costId)
+        {
+            return await buildingManager.GetCost(costId);
+        }
+
+        public async Task UpdateCost(CostDTO cost)
+        {
+            await buildingManager.UpdateCost(cost);
+        }
+
+        public async Task DeleteCost(int costId)
+        {
+            await buildingManager.DeleteCost(costId);
         }
     }
 }

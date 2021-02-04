@@ -8,9 +8,9 @@ namespace ASa.ApartmentManagement.Core.BaseInfo.DataGateways
 {
     public interface ICostTableGateway
     {
-        Task<int> InsertCostAsync(CostDTO cost);
-        Task<IEnumerable<CostDTO>> GetCostsById(int costId);
-        Task<bool> UpdateCostByIdAsync(int costId, CostDTO updatedCost);
-        Task<bool> DeleteCostByIdAsync(int costId);
+        Task<int> InsertAsync(CostDTO cost);
+        Task<CostDTO> GetByIdAsync(int costId);
+        Task UpdateAsync(CostDTO updatedCost);
+        Task DeleteByIdAsync(int costId);
     }
 }
