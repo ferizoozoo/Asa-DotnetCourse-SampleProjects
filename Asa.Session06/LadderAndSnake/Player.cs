@@ -7,11 +7,13 @@ namespace LadderAndSnake
         public string Name { get; }
         public int Position { get; private set; } = 1;
         public ColorEnum Color { get; }
+        public int Lives { get; private set; }
 
         public Player(string name, ColorEnum color)
         {
             Name = name != null ? name.Trim().ToLower() : throw new ArgumentNullException(nameof(name));
             Color = color;
+            Lives = 100;
         }
 
         public int RollDice()
@@ -41,11 +43,30 @@ namespace LadderAndSnake
         public static bool operator ==(Player p1, Player p2) => p1.Equals(p2);
         public static bool operator !=(Player p1, Player p2) => !p1.Equals(p2);
 
+        public void ChangeLives(int change)
+        {
+            var newLives = Lives + change;
+            if (newLives > 100)
+            {
+                Lives = 100;
+            }
+            else if (newLives < 0)
+            {
+                Lives = 0;
+            }
+            else
+            {
+                Lives = newLives;
+            }
+        }
+
         internal MoveResult MoveOn(Board board)
         {
             var diceValue = RollDice();
             var oldPosition = Position;
             var newPosition = board.CalculateNextPosition(oldPosition, diceValue);
+            if (board.CheckSpecialSnake(newPosition))
+                ChangeLives(-1);
             Position = newPosition;
             return new MoveResult(Name, Color, oldPosition, newPosition, diceValue);
         }

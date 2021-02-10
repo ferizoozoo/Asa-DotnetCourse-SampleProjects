@@ -45,16 +45,10 @@ namespace LadderAndSnake
 
         public void PlayGame()
         {
-            MoveResult moveResult;
-
             do
             {
-                moveResult = Play();
-                Console.WriteLine($"Player {moveResult.Name} just played.");
+                Play();
             } while (!gameIsFinished);
-
-            var name = moveResult.Name;
-            Console.WriteLine($"The winner is {name}");
         }
 
         private Player GetCurrentPlayer() => _players[currentPlayerIndex];
