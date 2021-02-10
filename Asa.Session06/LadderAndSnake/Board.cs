@@ -63,6 +63,8 @@ namespace LadderAndSnake
         private bool IsSnake(ShortCut shortCut) => shortCut.Start > shortCut.End;
         private bool IsLadder(ShortCut shortCut) => shortCut.Start < shortCut.End;
 
+        private bool IsLadder(ShortCut shortCut) => shortCut.Start < shortCut.End;
+
         private void AddShortCut(int count, bool isSpecial, ShortCutSnakeOrLadder snakeOrLadder)
         {
             int shortCutsAdded = 0;

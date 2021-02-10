@@ -13,6 +13,7 @@ namespace LadderAndSnake
         {
             Name = name != null ? name.Trim().ToLower() : throw new ArgumentNullException(nameof(name));
             Color = color;
+            Lives = 100;
         }
 
         public int RollDice()
@@ -64,6 +65,8 @@ namespace LadderAndSnake
             var diceValue = RollDice();
             var oldPosition = Position;
             var newPosition = board.CalculateNextPosition(oldPosition, diceValue);
+            if (board.CheckSpecialSnake(newPosition))
+                ChangeLives(-1);
             Position = newPosition;
             return new MoveResult(Name, Color, oldPosition, newPosition, diceValue);
         }

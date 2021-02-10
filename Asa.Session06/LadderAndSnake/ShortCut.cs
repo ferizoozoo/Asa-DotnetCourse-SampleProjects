@@ -16,10 +16,6 @@ namespace LadderAndSnake
         {
             Start = start;
             End = end;
-            IsSpecial = isSpecial;
-
-            if (IsLadder && IsSpecial)
-                End = 100;
         }
 
         public override bool Equals(object obj)
