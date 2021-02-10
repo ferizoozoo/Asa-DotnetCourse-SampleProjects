@@ -36,6 +36,13 @@ namespace LadderAndSnake
         {
             var currentPlayer = GetCurrentPlayer();
             MoveResult moveresult = currentPlayer.MoveOn(_board);
+
+            if (_board.CheckSpecialSnake(moveresult.NewPosition))
+                currentPlayer.ChangeLives(-1);
+
+            if (currentPlayer.Lives == 0)
+                _players.Remove(currentPlayer);
+
             moveresult.IsWinner = moveresult.NewPosition == _board.ExitPoint;
             currentPlayerIndex = currentPlayerIndex == _players.Count - 1 ? 0 : currentPlayerIndex + 1; 
             gameIsFinished = moveresult.IsWinner;
@@ -45,16 +52,12 @@ namespace LadderAndSnake
 
         public void PlayGame()
         {
-            MoveResult moveResult;
-
             do
             {
-                moveResult = Play();
-                Console.WriteLine($"Player {moveResult.Name} just played.");
+                if (_players.Count == 0)
+                    throw new Exception("Game finished with no one winning!");
+                Play();
             } while (!gameIsFinished);
-
-            var name = moveResult.Name;
-            Console.WriteLine($"The winner is {name}");
         }
 
         private Player GetCurrentPlayer() => _players[currentPlayerIndex];

@@ -4,15 +4,22 @@ using System.Text;
 
 namespace LadderAndSnake
 {
-    public struct ShortCut
+    public class ShortCut
     {
         public int Start { get; }
         public int End { get; }
+        public bool IsSnake => Start > End;
+        public bool IsLadder => Start < End;
+        public bool IsSpecial { get; }
 
-        public ShortCut(int start, int end)
+        public ShortCut(int start, int end, bool isSpecial)
         {
             Start = start;
             End = end;
+            IsSpecial = isSpecial;
+
+            if (IsLadder && IsSpecial)
+                End = 100;
         }
 
         public override bool Equals(object obj)

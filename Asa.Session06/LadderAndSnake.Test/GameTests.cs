@@ -14,7 +14,9 @@ namespace LadderAndSnake.Test
         const int BOARD_HEIGHT = 10;
         const int BOARD_WIDTH = 10;
         const int LADDER_COUNT = 5;
+        const int SPECIAL_LADDER_COUNT = 2;
         const int SNAKE_COUNT = 5;
+        const int SPECIAL_SNAKE_COUNT = 3;
 
         const int PLAYERS = 4;
 
@@ -22,7 +24,7 @@ namespace LadderAndSnake.Test
         [SetUp]
         public void Setup()
         {
-            board = new Board(BOARD_HEIGHT, BOARD_WIDTH, LADDER_COUNT, SNAKE_COUNT);
+            board = new Board(BOARD_HEIGHT, BOARD_WIDTH, LADDER_COUNT, SPECIAL_LADDER_COUNT, SNAKE_COUNT, SPECIAL_SNAKE_COUNT);
             _game = new Game(board);
 
             for (int player = 0; player < PLAYERS; player++)

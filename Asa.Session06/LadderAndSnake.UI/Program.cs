@@ -7,7 +7,7 @@ namespace LadderAndSnake.UI
     {
         static void Main(string[] args)
         {
-            Board board = new Board(10, 10, 5, 5);
+            Board board = new Board(10, 10, 5, 3, 5, 2);
             Game game = new Game(board);
 
             game.Join("A", ColorEnum.Blue);

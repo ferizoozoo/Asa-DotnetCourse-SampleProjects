@@ -10,12 +10,14 @@ namespace LadderAndSnake.Test
         const int GAME_BOARD_HEIGHT = 10;
         const int GAME_BOARD_WIDTH = 10;
         const int LADDER_COUNT = 5;
+        const int SPECIAL_LADDER_COUNT = 2;
         const int SNAKE_COUNT = 5;
+        const int SPECIAL_SNAKE_COUNT = 3;
 
         [SetUp]
         public void Setup()
         {
-            _board = new Board(GAME_BOARD_HEIGHT, GAME_BOARD_WIDTH, LADDER_COUNT, SNAKE_COUNT);
+            _board = new Board(GAME_BOARD_HEIGHT, GAME_BOARD_WIDTH, LADDER_COUNT, SPECIAL_LADDER_COUNT, SNAKE_COUNT, SPECIAL_SNAKE_COUNT);
         }
 
         [Test]

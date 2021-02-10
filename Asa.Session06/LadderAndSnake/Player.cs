@@ -7,6 +7,7 @@ namespace LadderAndSnake
         public string Name { get; }
         public int Position { get; private set; } = 1;
         public ColorEnum Color { get; }
+        public int Lives { get; private set; } = 100;
 
         public Player(string name, ColorEnum color)
         {
@@ -40,6 +41,23 @@ namespace LadderAndSnake
         }
         public static bool operator ==(Player p1, Player p2) => p1.Equals(p2);
         public static bool operator !=(Player p1, Player p2) => !p1.Equals(p2);
+
+        public void ChangeLives(int change)
+        {
+            var newLives = Lives + change;
+            if (newLives > 100)
+            {
+                Lives = 100;
+            }
+            else if (newLives < 0)
+            {
+                Lives = 0;
+            }
+            else
+            {
+                Lives = newLives;
+            }
+        }
 
         internal MoveResult MoveOn(Board board)
         {
